@@ -15,3 +15,14 @@ Pass også på at du har installert Python 3, og hvis du har en <br>
 Macbook med M1 prosessor, sjekk 
 
 <a href="https://github.com/Gadangadang/Fys-Stk4155/blob/main/README.md" target="_blank">Hvordan installere tensorflow på M1 mac</a>
+<br>
+<br>
+For å kjøre algoritmen, først gå inn i Codebase mappen. Deretter må du skrive 
+```
+python image.py
+```
+hvis du kjører på mac og 
+```
+python3 image.py
+```
+hvis du kjører på Linux. 
