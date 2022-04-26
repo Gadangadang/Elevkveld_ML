@@ -1,0 +1,7 @@
+tensorflow
+autograd
+scikit-learn
+numpy
+matplotlib
+seaborn
+Pillow

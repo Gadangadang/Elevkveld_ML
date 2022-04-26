@@ -49,7 +49,7 @@ def turn_image_to_array():
         
         input_arr = tf.keras.preprocessing.image.img_to_array(image)
 
-        print(np.shape(input_arr))
+      
         
         x_test_spec.append(input_arr)
         
@@ -60,7 +60,7 @@ def turn_image_to_array():
     x_test_spec = np.asarray(x_test_spec)
     y_test_spec = np.asarray(y_test_spec)
     
-    print(y_test_spec, np.shape(x_test_spec))
+   
     
     return x_test_spec, y_test_spec
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     #Prediction for the handwritten images
     predict_hand = model.predict(x_test_spec)
     predict_hand = np.argmax(predict_hand, axis=1)
-    print(predict_hand)
     
+    print(predict_hand)
     print(y_test_spec)
 
