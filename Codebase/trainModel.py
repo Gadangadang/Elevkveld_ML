@@ -18,11 +18,12 @@ if __name__ == "__main__":
     
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
+    """
     digits = []
     for i in range(4):
         digits.append({"image": x_train[i], "target": y_train[i], "predict": 2})
     plot_digits(digits)
-    exit()
+    """
 
     input_shape = (28, 28, 1)
     
@@ -39,7 +40,7 @@ if __name__ == "__main__":
     num_classes = 10
     epochs = 5
 
-    model = create_model()
+    model = create_model(input_shape, num_classes)
     
     history = model.fit(x_train, y_train,
                         batch_size=batch_size,
