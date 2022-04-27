@@ -5,33 +5,7 @@ from utilities import *
 
 
 
-def create_model():
-    model = tf.keras.models.Sequential([
-        tf.keras.layers.Conv2D(32, (5, 5), padding='same',
-                               activation='relu', input_shape=input_shape),
-        tf.keras.layers.Conv2D(32, (5, 5), padding='same', activation='relu'),
-        tf.keras.layers.MaxPool2D(),
-        tf.keras.layers.Dropout(0.25),
-        tf.keras.layers.Conv2D(64, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.Conv2D(64, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.MaxPool2D(strides=(2, 2)),
-        tf.keras.layers.Dropout(0.25),
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dropout(0.5),
-        tf.keras.layers.Dense(num_classes, activation='softmax')
-    ])
 
-
-    model.compile(optimizer=tf.keras.optimizers.Adam(), 
-              loss='categorical_crossentropy', metrics=['acc'])
-    return model
-
-class myCallback(tf.keras.callbacks.Callback):
-      def on_epoch_end(self, epoch, logs={}):
-        if(logs.get('acc')>0.995):
-            print("\nReached 99.5% accuracy so cancelling training!")
-            self.model.stop_training = True
 
 if __name__ == "__main__":
     """
