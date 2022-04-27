@@ -19,10 +19,10 @@ Macbook med M1 prosessor, sjekk
 <br>
 For å kjøre algoritmen, først gå inn i Codebase mappen. Deretter må du skrive 
 ```
-python image.py
+python predictImages.py
 ```
 hvis du kjører på mac og 
 ```
-python3 image.py
+python3 predictImages.py
 ```
 hvis du kjører på Linux. 
