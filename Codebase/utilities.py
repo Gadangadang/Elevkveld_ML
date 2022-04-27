@@ -7,6 +7,7 @@ import os
 def turn_image_to_array():  
     path_of_the_directory = '../Hand_drawn_images/'
     list_of_files = os.listdir(path_of_the_directory)
+    list_of_files.pop(0)
     
     y_test_spec = [] 
     x_test_spec = [] 
@@ -24,7 +25,7 @@ def turn_image_to_array():
         x_test_spec.append(input_arr)
         
         # Get labels
-        stringlabel = filename.split(".jpeg")[0]
+        stringlabel = filename.split(".jpg")[0]
         y_test_spec.append(int(stringlabel))
         
     x_test_spec = np.asarray(x_test_spec)
@@ -40,5 +41,5 @@ def plot_digits(digits):
         plt.figure(figsize=(6, 6))
         plt.axis("off")
         plt.imshow(image, cmap=plt.cm.gray_r, interpolation="nearest")
-        plt.title(f"Tallet skrevet av eleven: {label}, tallet lest av maskin {predict}.", fontsize=16)
+        plt.title(f"Tallet skrevet av eleven: {label}, tallet gjettet av maskin {predict}.", fontsize=16)
         plt.show()
