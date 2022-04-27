@@ -1,8 +1,8 @@
 import numpy as np 
-import matplotlib.pyplot as plt 
 import tensorflow as tf 
-from PIL import Image
-import os
+
+from utilities import *
+
 
 
 def create_model():
@@ -33,56 +33,25 @@ class myCallback(tf.keras.callbacks.Callback):
             print("\nReached 99.5% accuracy so cancelling training!")
             self.model.stop_training = True
 
-def turn_image_to_array():  
-    path_of_the_directory = '../Hand_drawn_images/'
-    list_of_files = os.listdir(path_of_the_directory)
-    y_test_spec = [] 
-    x_test_spec = [] 
-    
-    for filename in list_of_files:
-        image = tf.keras.preprocessing.image.load_img(path_of_the_directory + filename, 
-                                                      color_mode="grayscale", 
-                                                      target_size=(28,28))
-       
-        plt.imshow(image)
-        plt.show()
-        
-        input_arr = tf.keras.preprocessing.image.img_to_array(image)
-
-      
-        
-        x_test_spec.append(input_arr)
-        
-        # Get labels
-        stringlabel = filename.split(".jpeg")[0]
-        y_test_spec.append(int(stringlabel))
-        
-    x_test_spec = np.asarray(x_test_spec)
-    y_test_spec = np.asarray(y_test_spec)
-    
-   
-    
-    return x_test_spec, y_test_spec
-
-    
-    
-  
-
 if __name__ == "__main__":
-    
-    x_test_spec, y_test_spec = turn_image_to_array()
-    
-    
+    """
+    This file is created to train the model using the MNIST dataset.
+    """
     mnist = tf.keras.datasets.mnist
     callbacks = myCallback()
     
     tf.config.set_visible_devices([], 'GPU')
     
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    
+
+    digits = []
+    for i in range(4):
+        digits.append({"image": x_train[i], "target": y_train[i], "predict": 2})
+    plot_digits(digits)
+    exit()
 
     input_shape = (28, 28, 1)
-
+    
     x_train = x_train.reshape(
         x_train.shape[0], x_train.shape[1], x_train.shape[2], 1)
     x_train = x_train / 255.0
@@ -98,25 +67,12 @@ if __name__ == "__main__":
 
     model = create_model()
     
-    #with tf.device("/physical_device: CPU: 0"):  # Use CPU
-    #history = model.fit(x_train, y_train,
-    #                    batch_size=batch_size,
-    #                    epochs=epochs,
-    #                    validation_split=0.2,
-    #                    callbacks=[callbacks])
+    history = model.fit(x_train, y_train,
+                        batch_size=batch_size,
+                        epochs=epochs,
+                        validation_split=0.2,
+                        callbacks=[callbacks])
     
-    #model.save('saved_model/trained_model')
-    model = tf.keras.models.load_model('saved_model/trained_model')
-    prediction = model.predict(x_test)
-        
-    prediction = np.argmax(prediction, axis=1)
-    print(prediction)
+    model.save('saved_model/trained_model')
     
     
-    #Prediction for the handwritten images
-    predict_hand = model.predict(x_test_spec)
-    predict_hand = np.argmax(predict_hand, axis=1)
-    
-    print(predict_hand)
-    print(y_test_spec)
-
